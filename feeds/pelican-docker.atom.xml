@@ -121,7 +121,6 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 ここでは&lt;code&gt;Github Pages&lt;/code&gt;を作成した後、Pelicanで作成したブログを公開する方法を記述します。&lt;/p&gt;
 &lt;p&gt;初回のみ以下のようにして、&lt;code&gt;git&lt;/code&gt;の初期化を行います。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git init
-# git checkout -b pelican
 # git remote add origin https://github.com/ponkotsu-n/ponkotsu-n.github.io.git
 &lt;/pre&gt;&lt;/div&gt;
 
