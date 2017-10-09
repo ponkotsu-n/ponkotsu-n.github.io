@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - Pelican, Docker</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/pelican-docker.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-09T13:00:00+09:00</updated><entry><title>DockerでPelicanを...</title><link href="https://ponkotsu-n.github.io/dockerdepelicanwo.html" rel="alternate"></link><published>2017-10-09T13:00:00+09:00</published><updated>2017-10-09T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-09:/dockerdepelicanwo.html</id><summary type="html">&lt;p&gt;Dockerで、Pelicanを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;ここでは、Docker上で Peicanを使用するための手順について記述します。&lt;/p&gt;
 &lt;h2&gt;目的&lt;/h2&gt;
-&lt;p&gt;Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは対象としません。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。&lt;/p&gt;
+&lt;p&gt;Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは割愛します。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。&lt;/p&gt;
 &lt;p&gt;ここでは、&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Docker上に Pelicanをインストールする&lt;/li&gt;
@@ -10,6 +11,7 @@
 &lt;/ul&gt;
 &lt;p&gt;について記述します。&lt;/p&gt;
 &lt;h1&gt;Dockerで Pelicanを動かすために&lt;/h1&gt;
+&lt;p&gt;Pelicanを起動するための、Dockerfileを作成します。&lt;/p&gt;
 &lt;h2&gt;ファイルの構成&lt;/h2&gt;
 &lt;p&gt;Dockerを使用するためのファイルは、以下のようになります。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;--
@@ -23,7 +25,6 @@
 
 
 &lt;h2&gt;Dockerfile&lt;/h2&gt;
-&lt;p&gt;Pelicanを起動するための、Dockerfileを作成します。&lt;/p&gt;
 &lt;p&gt;Dockerfileでは、&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;alpine&lt;/li&gt;
@@ -106,18 +107,18 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;img src="/images/docker/down.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
 &lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
 &lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;img src="/images/docker/down.png" alt="make serve" title="HTMLサーバの起動"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/docker/make-serve.png" alt="make serve" title="HTMLサーバの起動"&gt;&lt;/p&gt;
 &lt;p&gt;サーバを起動した後、作成した HTMLは Windows上の Chrome等で確認することができます。&lt;/p&gt;
 &lt;p&gt;&lt;img src="/images/docker/chrome.png" alt="Chrome" title="HTMLの確認"&gt;&lt;/p&gt;
 &lt;h2&gt;githubへの公開&lt;/h2&gt;
-&lt;p&gt;Githubへブログページを公開するには、Githubに&lt;code&gt;ユーザ名&lt;/code&gt;.github.io.gitというリポジトリを作成することで行えます。詳細は、&lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;を参照してください。また、ググるといろいろさ勲功になるページが出てきます。
+&lt;p&gt;Githubへブログページを公開するには、Githubに&lt;code&gt;ユーザ名.github.io.git&lt;/code&gt;というリポジトリを作成することで行えます。詳細は、&lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;を参照してください。また、ググるといろいろ参考になるページが出てきます。
 ここでは&lt;code&gt;Github Pages&lt;/code&gt;を作成した後、Pelicanで作成したブログを公開する方法を記述します。&lt;/p&gt;
 &lt;p&gt;初回のみ以下のようにして、&lt;code&gt;git&lt;/code&gt;の初期化を行います。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git init

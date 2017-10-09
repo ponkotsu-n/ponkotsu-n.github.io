@@ -56,8 +56,9 @@
 </header>
 
   <div class="entry-content"><h1>はじめに</h1>
+<p>ここでは、Docker上で Peicanを使用するための手順について記述します。</p>
 <h2>目的</h2>
-<p>Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは対象としません。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。</p>
+<p>Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは割愛します。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。</p>
 <p>ここでは、</p>
 <ul>
 <li>Docker上に Pelicanをインストールする</li>
@@ -66,6 +67,7 @@
 </ul>
 <p>について記述します。</p>
 <h1>Dockerで Pelicanを動かすために</h1>
+<p>Pelicanを起動するための、Dockerfileを作成します。</p>
 <h2>ファイルの構成</h2>
 <p>Dockerを使用するためのファイルは、以下のようになります。</p>
 <div class="highlight"><pre><span></span>--
@@ -79,7 +81,6 @@
 
 
 <h2>Dockerfile</h2>
-<p>Pelicanを起動するための、Dockerfileを作成します。</p>
 <p>Dockerfileでは、</p>
 <ul>
 <li>alpine</li>
@@ -162,18 +163,18 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
 </pre></div>
 
 
-<p><img src="/images/docker/down.png" alt="make html" title="HTMLの作成"></p>
+<p><img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"></p>
 <h2>ローカル環境での確認</h2>
 <p>Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。</p>
 <div class="highlight"><pre><span></span># make serve      # localhost:8080で作成した HTMLを確認する
 </pre></div>
 
 
-<p><img src="/images/docker/down.png" alt="make serve" title="HTMLサーバの起動"></p>
+<p><img src="/images/docker/make-serve.png" alt="make serve" title="HTMLサーバの起動"></p>
 <p>サーバを起動した後、作成した HTMLは Windows上の Chrome等で確認することができます。</p>
 <p><img src="/images/docker/chrome.png" alt="Chrome" title="HTMLの確認"></p>
 <h2>githubへの公開</h2>
-<p>Githubへブログページを公開するには、Githubに<code>ユーザ名</code>.github.io.gitというリポジトリを作成することで行えます。詳細は、<a href="https://pages.github.com/">Github Pages</a>を参照してください。また、ググるといろいろさ勲功になるページが出てきます。
+<p>Githubへブログページを公開するには、Githubに<code>ユーザ名.github.io.git</code>というリポジトリを作成することで行えます。詳細は、<a href="https://pages.github.com/">Github Pages</a>を参照してください。また、ググるといろいろ参考になるページが出てきます。
 ここでは<code>Github Pages</code>を作成した後、Pelicanで作成したブログを公開する方法を記述します。</p>
 <p>初回のみ以下のようにして、<code>git</code>の初期化を行います。</p>
 <div class="highlight"><pre><span></span># git init
