@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/all.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-09T13:00:00+09:00</updated><entry><title>DockerでPelicanを...</title><link href="https://ponkotsu-n.github.io/dockerdepelicanwo.html" rel="alternate"></link><published>2017-10-09T13:00:00+09:00</published><updated>2017-10-09T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-09:/dockerdepelicanwo.html</id><summary type="html">&lt;p&gt;Dockerで、Pelicanを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
+&lt;h2&gt;目的&lt;/h2&gt;
+&lt;p&gt;Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは対象としません。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。&lt;/p&gt;
+&lt;p&gt;ここでは、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Docker上に Pelicanをインストールする&lt;/li&gt;
+&lt;li&gt;Pelicanで Blogを作成する&lt;/li&gt;
+&lt;li&gt;Githubへ Blogを公開する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;について記述します。&lt;/p&gt;
+&lt;h1&gt;Dockerで Pelicanを動かすために&lt;/h1&gt;
+&lt;h2&gt;ファイルの構成&lt;/h2&gt;
+&lt;p&gt;Dockerを使用するためのファイルは、以下のようになります。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;--
+ |
+ +- pelican/
+ |     |
+ |     +- Dockerfile
+ |
+ +- docker-compose.yml
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Dockerfile&lt;/h2&gt;
+&lt;p&gt;Pelicanを起動するための、Dockerfileを作成します。&lt;/p&gt;
+&lt;p&gt;Dockerfileでは、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;alpine&lt;/li&gt;
+&lt;li&gt;python3&lt;/li&gt;
+&lt;li&gt;make&lt;/li&gt;
+&lt;li&gt;bash&lt;/li&gt;
+&lt;li&gt;git&lt;/li&gt;
+&lt;li&gt;openssh&lt;/li&gt;
+&lt;li&gt;pip&lt;/li&gt;
+&lt;li&gt;pelican&lt;/li&gt;
+&lt;li&gt;markdown&lt;/li&gt;
+&lt;li&gt;ghp-import&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;をインストールします。&lt;/p&gt;
+&lt;p&gt;Dockerfileは、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM alpine:latest
+
+RUN echo -e &amp;quot;@edge http://nl.alpinelinux.org/alpine/edge/main\n@testing http://nl.alpinelinux.org/alpine/edge/testing\n@community http://nl.alpinelinux.org/alpine/edge/community&amp;quot; &amp;gt;&amp;gt; /etc/apk/repositories
+
+RUN apk -U add --no-cache \
+    python3 \
+    perl \
+    make \
+    bash \
+    git \
+    openssh \
+    &amp;amp;&amp;amp; pip3 install --upgrade pip \
+    &amp;amp;&amp;amp; pip3 install pelican markdown ghp-import
+
+EXPOSE 8000
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;となります。&lt;/p&gt;
+&lt;h2&gt;Docker Compose&lt;/h2&gt;
+&lt;p&gt;Dockerの起動には、Docker Composeを使用します。&lt;/p&gt;
+&lt;p&gt;docker-compose.ymlは、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;3.3&amp;quot;&lt;/span&gt;
+
+&lt;span class="nt"&gt;services&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;pelican&lt;/span&gt;
+    &lt;span class="nt"&gt;command&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sh&lt;/span&gt; &lt;span class="nt"&gt;-c&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;while true; do sleep 1; done&amp;quot;&lt;/span&gt;
+    &lt;span class="nt"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+      &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;8000:8000&amp;quot;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+      &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;Work&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;work&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;となります。&lt;/p&gt;
+&lt;h2&gt;ビルドと起動&lt;/h2&gt;
+&lt;p&gt;Pelicanを使用するために、用意した Dockerfileを使用して、イメージを作成します。イメージを作成後に、Docker上で起動します。
+Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart Terminal&lt;/code&gt;を起動して、以下のように実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; &amp;gt; cd /c/Work/pelican
+ &amp;gt; docker-compose build
+ &amp;gt; docker-compose up -d
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src="/images/docker/build-1.png" alt="docker-compose build" title="ビルド1"&gt;
+&lt;img src="/images/docker/build-2.png" alt="docker-compose build" title="ビルド2"&gt;&lt;/p&gt;
+&lt;h2&gt;停止&lt;/h2&gt;
+&lt;p&gt;起動したDockerコンポーネントを停止するには、 &lt;code&gt;docker-compose down&lt;/code&gt;を実行します。&lt;/p&gt;
+&lt;p&gt;停止するには、以下のように実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker-compose down
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src="/images/docker/down.png" alt="docker-compose down" title="終了"&gt;&lt;/p&gt;
+&lt;h1&gt;Pelicanの使い方&lt;/h1&gt;
+&lt;p&gt;ここでは、Pelicanを使用して、静的に HTMLを作成し、ローカル環境で確認し、githubで公開する方法を記述します。&lt;/p&gt;
+&lt;h2&gt;htmlの作成&lt;/h2&gt;
+&lt;p&gt;Pellicanでビルドした HTMLファイルは、&lt;code&gt;output/&lt;/code&gt;に作成されます。このディレクトリを&lt;code&gt;github&lt;/code&gt;で公開すれば、ブログを始めることができます。&lt;/p&gt;
+&lt;p&gt;Pelicanでビルドするには、以下のように実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# cd Pelicnの作業ディレクトリ
+#
+# make html       # 公開する HTMLを作成する
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src="/images/docker/down.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
+&lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
+&lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src="/images/docker/down.png" alt="make serve" title="HTMLサーバの起動"&gt;&lt;/p&gt;
+&lt;p&gt;サーバを起動した後、作成した HTMLは Windows上の Chrome等で確認することができます。&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/docker/chrome.png" alt="Chrome" title="HTMLの確認"&gt;&lt;/p&gt;
+&lt;h2&gt;githubへの公開&lt;/h2&gt;
+&lt;p&gt;Githubへブログページを公開するには、Githubに&lt;code&gt;ユーザ名&lt;/code&gt;.github.io.gitというリポジトリを作成することで行えます。詳細は、&lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;を参照してください。また、ググるといろいろさ勲功になるページが出てきます。
+ここでは&lt;code&gt;Github Pages&lt;/code&gt;を作成した後、Pelicanで作成したブログを公開する方法を記述します。&lt;/p&gt;
+&lt;p&gt;初回のみ以下のようにして、&lt;code&gt;git&lt;/code&gt;の初期化を行います。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git init
+# git checkout -b pelican
+# git remote add origin https://github.com/ponkotsu-n/ponkotsu-n.github.io.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;Github Pages&lt;/code&gt;へブログを公開するには以下のようにします。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make clean publish    # 公開用の HTMLを作成する
+# make github           # 作成した HTMLを githubに公開する
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;今回は、Dockerを使用して、Pelicanでブログを作成し、Githubへ公開するまでを簡単にまとめてみました。Dockerを使ってみて、かなり使いやすいと感じました。Windows上でコードを編集し、Docker上で実行するという流れが、心地よいです。&lt;/p&gt;
+&lt;p&gt;これで、Windowsにいろいろインストールして、いつの間にか何のためにインストールしたかわからなくなるアプリケーションが溢れかえるという悪循環から解放されるように思います。&lt;/p&gt;</content><category term="pelican"></category><category term="docker"></category></entry><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
+&lt;p&gt;ペリカンでブログをはじめてみました。Markdownで気軽に書けるので、便利そうです。&lt;/p&gt;
+&lt;p&gt;最近、物忘れが激しいので、自分でいろいろやったことをまとめていきたいと思います。あくまでも、自分のための備忘録です。&lt;/p&gt;
+&lt;p&gt;不定期更新のです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SyntaxHighlitも使えるぉ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello World!!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="pelican"></category><category term="python"></category></entry></feed>

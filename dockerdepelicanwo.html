@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DockerでPelicanを... &mdash; Ponkotsu blog - Programer 徒然草</title>
+  <meta name="author" content="Ponkotsu Programer">
+
+
+
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://ponkotsu-n.github.io/favicon.png" rel="icon">
+
+  <link href="https://ponkotsu-n.github.io/theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="https://ponkotsu-n.github.io/">Ponkotsu blog - Programer 徒然草</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+<ul class="main-navigation">
+      <li >
+        <a href="https://ponkotsu-n.github.io/category/pelican.html">Pelican</a>
+      </li>
+      <li class="active">
+        <a href="https://ponkotsu-n.github.io/category/pelican-docker.html">Pelican, docker</a>
+      </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">DockerでPelicanを...</h1>
+    <p class="meta">
+<time datetime="2017-10-09T13:00:00+09:00" pubdate>Mon 09 October 2017</time>    </p>
+</header>
+
+  <div class="entry-content"><h1>はじめに</h1>
+<h2>目的</h2>
+<p>Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは対象としません。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。</p>
+<p>ここでは、</p>
+<ul>
+<li>Docker上に Pelicanをインストールする</li>
+<li>Pelicanで Blogを作成する</li>
+<li>Githubへ Blogを公開する</li>
+</ul>
+<p>について記述します。</p>
+<h1>Dockerで Pelicanを動かすために</h1>
+<h2>ファイルの構成</h2>
+<p>Dockerを使用するためのファイルは、以下のようになります。</p>
+<div class="highlight"><pre><span></span>--
+ |
+ +- pelican/
+ |     |
+ |     +- Dockerfile
+ |
+ +- docker-compose.yml
+</pre></div>
+
+
+<h2>Dockerfile</h2>
+<p>Pelicanを起動するための、Dockerfileを作成します。</p>
+<p>Dockerfileでは、</p>
+<ul>
+<li>alpine</li>
+<li>python3</li>
+<li>make</li>
+<li>bash</li>
+<li>git</li>
+<li>openssh</li>
+<li>pip</li>
+<li>pelican</li>
+<li>markdown</li>
+<li>ghp-import</li>
+</ul>
+<p>をインストールします。</p>
+<p>Dockerfileは、</p>
+<div class="highlight"><pre><span></span>FROM alpine:latest
+
+RUN echo -e &quot;@edge http://nl.alpinelinux.org/alpine/edge/main\n@testing http://nl.alpinelinux.org/alpine/edge/testing\n@community http://nl.alpinelinux.org/alpine/edge/community&quot; &gt;&gt; /etc/apk/repositories
+
+RUN apk -U add --no-cache \
+    python3 \
+    perl \
+    make \
+    bash \
+    git \
+    openssh \
+    &amp;&amp; pip3 install --upgrade pip \
+    &amp;&amp; pip3 install pelican markdown ghp-import
+
+EXPOSE 8000
+</pre></div>
+
+
+<p>となります。</p>
+<h2>Docker Compose</h2>
+<p>Dockerの起動には、Docker Composeを使用します。</p>
+<p>docker-compose.ymlは、</p>
+<div class="highlight"><pre><span></span><span class="nt">version</span><span class="o">:</span> <span class="s2">&quot;3.3&quot;</span>
+
+<span class="nt">services</span><span class="o">:</span>
+  <span class="nt">pelican</span><span class="o">:</span>
+    <span class="nt">build</span><span class="o">:</span> <span class="nt">pelican</span>
+    <span class="nt">command</span><span class="o">:</span> <span class="o">/</span><span class="nt">bin</span><span class="o">/</span><span class="nt">sh</span> <span class="nt">-c</span> <span class="s2">&quot;while true; do sleep 1; done&quot;</span>
+    <span class="nt">ports</span><span class="o">:</span>
+      <span class="nt">-</span> <span class="s2">&quot;8000:8000&quot;</span>
+
+    <span class="nt">volumes</span><span class="o">:</span>
+      <span class="nt">-</span> <span class="o">/</span><span class="nt">Work</span><span class="o">/</span><span class="nt">pelican</span><span class="o">:/</span><span class="nt">work</span>
+</pre></div>
+
+
+<p>となります。</p>
+<h2>ビルドと起動</h2>
+<p>Pelicanを使用するために、用意した Dockerfileを使用して、イメージを作成します。イメージを作成後に、Docker上で起動します。
+Pelicanをビルドして、起動するには、<code>Docker Quickstart Terminal</code>を起動して、以下のように実行します。</p>
+<div class="highlight"><pre><span></span> &gt; cd /c/Work/pelican
+ &gt; docker-compose build
+ &gt; docker-compose up -d
+</pre></div>
+
+
+<p><img src="/images/docker/build-1.png" alt="docker-compose build" title="ビルド1">
+<img src="/images/docker/build-2.png" alt="docker-compose build" title="ビルド2"></p>
+<h2>停止</h2>
+<p>起動したDockerコンポーネントを停止するには、 <code>docker-compose down</code>を実行します。</p>
+<p>停止するには、以下のように実行します。</p>
+<div class="highlight"><pre><span></span>docker-compose down
+</pre></div>
+
+
+<p><img src="/images/docker/down.png" alt="docker-compose down" title="終了"></p>
+<h1>Pelicanの使い方</h1>
+<p>ここでは、Pelicanを使用して、静的に HTMLを作成し、ローカル環境で確認し、githubで公開する方法を記述します。</p>
+<h2>htmlの作成</h2>
+<p>Pellicanでビルドした HTMLファイルは、<code>output/</code>に作成されます。このディレクトリを<code>github</code>で公開すれば、ブログを始めることができます。</p>
+<p>Pelicanでビルドするには、以下のように実行します。</p>
+<div class="highlight"><pre><span></span># cd Pelicnの作業ディレクトリ
+#
+# make html       # 公開する HTMLを作成する
+</pre></div>
+
+
+<p><img src="/images/docker/down.png" alt="make html" title="HTMLの作成"></p>
+<h2>ローカル環境での確認</h2>
+<p>Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。</p>
+<div class="highlight"><pre><span></span># make serve      # localhost:8080で作成した HTMLを確認する
+</pre></div>
+
+
+<p><img src="/images/docker/down.png" alt="make serve" title="HTMLサーバの起動"></p>
+<p>サーバを起動した後、作成した HTMLは Windows上の Chrome等で確認することができます。</p>
+<p><img src="/images/docker/chrome.png" alt="Chrome" title="HTMLの確認"></p>
+<h2>githubへの公開</h2>
+<p>Githubへブログページを公開するには、Githubに<code>ユーザ名</code>.github.io.gitというリポジトリを作成することで行えます。詳細は、<a href="https://pages.github.com/">Github Pages</a>を参照してください。また、ググるといろいろさ勲功になるページが出てきます。
+ここでは<code>Github Pages</code>を作成した後、Pelicanで作成したブログを公開する方法を記述します。</p>
+<p>初回のみ以下のようにして、<code>git</code>の初期化を行います。</p>
+<div class="highlight"><pre><span></span># git init
+# git checkout -b pelican
+# git remote add origin https://github.com/ponkotsu-n/ponkotsu-n.github.io.git
+</pre></div>
+
+
+<p><code>Github Pages</code>へブログを公開するには以下のようにします。</p>
+<div class="highlight"><pre><span></span># make clean publish    # 公開用の HTMLを作成する
+# make github           # 作成した HTMLを githubに公開する
+</pre></div>
+
+
+<h1>まとめ</h1>
+<p>今回は、Dockerを使用して、Pelicanでブログを作成し、Githubへ公開するまでを簡単にまとめてみました。Dockerを使ってみて、かなり使いやすいと感じました。Windows上でコードを編集し、Docker上で実行するという流れが、心地よいです。</p>
+<p>これで、Windowsにいろいろインストールして、いつの間にか何のためにインストールしたかわからなくなるアプリケーションが溢れかえるという悪循環から解放されるように思います。</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        ponkotsu
+    </span>
+  </span>
+<time datetime="2017-10-09T13:00:00+09:00" pubdate>Mon 09 October 2017</time>  <span class="categories">
+    <a class='category' href='https://ponkotsu-n.github.io/category/pelican-docker.html'>Pelican, Docker</a>
+  </span>
+  <span class="categories">
+    <a class="category" href="https://ponkotsu-n.github.io/tag/pelican.html">pelican</a>,    <a class="category" href="https://ponkotsu-n.github.io/tag/docker.html">docker</a>  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="https://ponkotsu-n.github.io/dockerdepelicanwo.html">DockerでPelicanを...</a>
+      </li>
+      <li class="post">
+          <a href="https://ponkotsu-n.github.io/first-post.html">はじめてのPelicanブログ</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="https://ponkotsu-n.github.io/category/pelican.html">Pelican</a></li>
+        <li><a href="https://ponkotsu-n.github.io/category/pelican-docker.html">Pelican, Docker</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="https://ponkotsu-n.github.io/tag/pelican.html">pelican</a>,    <a href="https://ponkotsu-n.github.io/tag/docker.html">docker</a>,    <a href="https://ponkotsu-n.github.io/tag/python.html">python</a>  </section>
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="#" target="_blank">You can add links in your config file</a></li>
+            <li><a href="#" target="_blank">Another social link</a></li>
+        </ul>
+    </section>
+    <section>
+        <h1>Blogroll</h1>
+        <ul>
+            <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+            <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+    </section>
+
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2017  Ponkotsu Programer &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="https://ponkotsu-n.github.io/theme/js/modernizr-2.0.js"></script>
+  <script src="https://ponkotsu-n.github.io/theme/js/ender.js"></script>
+  <script src="https://ponkotsu-n.github.io/theme/js/octopress.js" type="text/javascript"></script>
+</body>
+</html>
