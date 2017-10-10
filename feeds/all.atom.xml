@@ -39,44 +39,11 @@
 &lt;li&gt;ghp-import&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;をインストールします。&lt;/p&gt;
-&lt;p&gt;Dockerfileは、&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM alpine:latest
-
-RUN echo -e &amp;quot;@edge http://nl.alpinelinux.org/alpine/edge/main\n@testing http://nl.alpinelinux.org/alpine/edge/testing\n@community http://nl.alpinelinux.org/alpine/edge/community&amp;quot; &amp;gt;&amp;gt; /etc/apk/repositories
-
-RUN apk -U add --no-cache \
-    python3 \
-    perl \
-    make \
-    bash \
-    git \
-    openssh \
-    &amp;amp;&amp;amp; pip3 install --upgrade pip \
-    &amp;amp;&amp;amp; pip3 install pelican markdown ghp-import
-
-EXPOSE 8000
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;となります。&lt;/p&gt;
-&lt;h2&gt;Docker Compose&lt;/h2&gt;
-&lt;p&gt;Dockerの起動には、Docker Composeを使用します。&lt;/p&gt;
-&lt;p&gt;docker-compose.ymlは、&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;3.3&amp;quot;&lt;/span&gt;
-
-&lt;span class="nt"&gt;services&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-  &lt;span class="nt"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nt"&gt;pelican&lt;/span&gt;
-    &lt;span class="nt"&gt;command&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;sh&lt;/span&gt; &lt;span class="nt"&gt;-c&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;while true; do sleep 1; done&amp;quot;&lt;/span&gt;
-    &lt;span class="nt"&gt;ports&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-      &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;8000:8000&amp;quot;&lt;/span&gt;
-
-    &lt;span class="nt"&gt;volumes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-      &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;Work&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;work&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;となります。&lt;/p&gt;
+&lt;p&gt;また、Dockerの起動には、Docker Composeを使用します。&lt;/p&gt;
+&lt;p&gt;Dockerfileと docker-compose.ymlは、
+&lt;script src="https://gist.github.com/ponkotsu-n/5084c57fd4fe3a1c46f6bc536e1981d6.js"&gt;&lt;/script&gt;
+となります。&lt;/p&gt;
+&lt;p&gt;ソースコードは、&lt;a href="https://github.com/ponkotsu-n/docker-pelican/"&gt;github.com&lt;/a&gt;で公開しています。&lt;/p&gt;
 &lt;h2&gt;ビルドと起動&lt;/h2&gt;
 &lt;p&gt;Pelicanを使用するために、用意した Dockerfileを使用して、イメージを作成します。イメージを作成後に、Docker上で起動します。
 Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart Terminal&lt;/code&gt;を起動して、以下のように実行します。&lt;/p&gt;
@@ -118,9 +85,9 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;p&gt;サーバを起動した後、作成した HTMLは Windows上の Chrome等で確認することができます。&lt;/p&gt;
 &lt;p&gt;&lt;img src="/images/docker/chrome.png" alt="Chrome" title="HTMLの確認"&gt;&lt;/p&gt;
 &lt;h2&gt;githubへの公開&lt;/h2&gt;
-&lt;p&gt;Githubへブログページを公開するには、Githubに&lt;code&gt;ユーザ名.github.io.git&lt;/code&gt;というリポジトリを作成することで行えます。詳細は、&lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;を参照してください。また、ググるといろいろ参考になるページが出てきます。
+&lt;p&gt;Githubへブログページを公開するには、Githubに&lt;code&gt;ユーザ名.github.io.git&lt;/code&gt;というリポジトリを作成することで行います。詳細は、&lt;a href="https://pages.github.com/"&gt;Github Pages&lt;/a&gt;を参照してください。また、ググるといろいろ参考になるページが出てきます。
 ここでは&lt;code&gt;Github Pages&lt;/code&gt;を作成した後、Pelicanで作成したブログを公開する方法を記述します。&lt;/p&gt;
-&lt;p&gt;初回のみ以下のようにして、&lt;code&gt;git&lt;/code&gt;の初期化を行います。&lt;/p&gt;
+&lt;p&gt;初回のみ以下のようにして、&lt;code&gt;git&lt;/code&gt;の初期化を行います。ここでは、&lt;code&gt;ponkotsu-n&lt;/code&gt;ユーザに対して、Github Pagesを作成します。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git init
 # git remote add origin https://github.com/ponkotsu-n/ponkotsu-n.github.io.git
 &lt;/pre&gt;&lt;/div&gt;
