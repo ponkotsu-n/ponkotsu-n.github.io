@@ -81,6 +81,18 @@
 <p>docker-compose.ymlは、
 <script src="https://gist.github.com/ponkotsu-n/871b0635df67379ea0bc0f9c7f4ddd20.js"></script>
 となります。</p>
+<h1>データベースの起動</h1>
+<p>データベースの起動するには、ローカル環境に Dockerのイメージファイルを作成します。</p>
+<p><code>Docker Quickstart Terminal</code>を起動し、docker-compose.ymlファイルのあるディレクトリに移動した後、以下のコマンドを実行します。</p>
+<div class="highlight"><pre><span></span>$ docker-compose build
+</pre></div>
+
+
+<p>イメージファイルが作成できたら、データベースを起動します。</p>
+<div class="highlight"><pre><span></span>$ docker-compose up -d
+</pre></div>
+
+
 <h1>データ・ボリューム</h1>
 <p>作成したデータベースは、Dockerコンテナのデータ・ボリューム上で管理します。データ・ボリュームは、Dockeホストの <code>/var/lib/docker/volumes/</code>に作成されます。</p>
 <h1>まとめ</h1>
