@@ -156,6 +156,39 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
 </pre></div>
 
 
+<p>githubに公開するのは、<code>output/</code>のみなので、ソースは別ブランチとして管理したくなります。というか、公開したくないです...。この場合は、以下のようにすることで解決できます。</p>
+<div class="highlight"><pre><span></span># git checkout -b source
+# echo &quot;__pycache__&quot; &gt; .gitignore
+# echo &quot;output&quot; &gt;&gt; .gitignore
+# git commit -m &quot;first commit.&quot;
+</pre></div>
+
+
+<p>リモートブランチを追加して、pullできるようにするには、</p>
+<div class="highlight"><pre><span></span># git remote add &lt;name&gt; &lt;url&gt;
+# git push &lt;name&gt; source:master
+</pre></div>
+
+
+<p>とします。</p>
+<p>例えば、Dropboxでソースを管理したい場合は、</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/Dropbox
+$ mkdir Repos
+$ <span class="nb">cd</span> Repos
+$ mkdir github.io.source.git
+$ <span class="nb">cd</span> github.io.source.git
+$ git init --bare --shared<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+
+
+<p>とします。
+先ほどの <code>git remote add</code>で指定する URLを ~/Dropbox/Repos/github.io.source.gitにすれば、gitでソースも管理できます。</p>
+<p>こんな感じ：</p>
+<div class="highlight"><pre><span></span># git remote add dropbox ~/Dropbox/Repos/github.io.source.git
+# git push dropbox source:master
+</pre></div>
+
+
 <h1>まとめ</h1>
 <p>今回は、Dockerを使用して、Pelicanでブログを作成し、Githubへ公開するまでを簡単にまとめてみました。Dockerを使ってみて、かなり使いやすいと感じました。Windows上でコードを編集し、Docker上で実行するという流れが、心地よいです。</p>
 <p>これで、Windowsにいろいろインストールして、いつの間にか何のためにインストールしたかわからなくなるアプリケーションが溢れかえるという悪循環から解放されるように思います。</p></div>

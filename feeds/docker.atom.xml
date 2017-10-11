@@ -139,6 +139,39 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;githubに公開するのは、&lt;code&gt;output/&lt;/code&gt;のみなので、ソースは別ブランチとして管理したくなります。というか、公開したくないです...。この場合は、以下のようにすることで解決できます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git checkout -b source
+# echo &amp;quot;__pycache__&amp;quot; &amp;gt; .gitignore
+# echo &amp;quot;output&amp;quot; &amp;gt;&amp;gt; .gitignore
+# git commit -m &amp;quot;first commit.&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;リモートブランチを追加して、pullできるようにするには、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git remote add &amp;lt;name&amp;gt; &amp;lt;url&amp;gt;
+# git push &amp;lt;name&amp;gt; source:master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;とします。&lt;/p&gt;
+&lt;p&gt;例えば、Dropboxでソースを管理したい場合は、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/Dropbox
+$ mkdir Repos
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; Repos
+$ mkdir github.io.source.git
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; github.io.source.git
+$ git init --bare --shared&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;とします。
+先ほどの &lt;code&gt;git remote add&lt;/code&gt;で指定する URLを ~/Dropbox/Repos/github.io.source.gitにすれば、gitでソースも管理できます。&lt;/p&gt;
+&lt;p&gt;こんな感じ：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# git remote add dropbox ~/Dropbox/Repos/github.io.source.git
+# git push dropbox source:master
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;今回は、Dockerを使用して、Pelicanでブログを作成し、Githubへ公開するまでを簡単にまとめてみました。Dockerを使ってみて、かなり使いやすいと感じました。Windows上でコードを編集し、Docker上で実行するという流れが、心地よいです。&lt;/p&gt;
 &lt;p&gt;これで、Windowsにいろいろインストールして、いつの間にか何のためにインストールしたかわからなくなるアプリケーションが溢れかえるという悪循環から解放されるように思います。&lt;/p&gt;</content><category term="pelican"></category><category term="docker"></category></entry></feed>
