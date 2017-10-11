@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - Pelican, Docker</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/pelican-docker.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-09T13:00:00+09:00</updated><entry><title>DockerでPelicanを...</title><link href="https://ponkotsu-n.github.io/dockerdepelicanwo.html" rel="alternate"></link><published>2017-10-09T13:00:00+09:00</published><updated>2017-10-09T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-09:/dockerdepelicanwo.html</id><summary type="html">&lt;p&gt;Dockerで、Pelicanを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - docker</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/docker.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-11T13:00:00+09:00</updated><entry><title>Dockerで楽々 Database</title><link href="https://ponkotsu-n.github.io/docker-database.html" rel="alternate"></link><published>2017-10-11T13:00:00+09:00</published><updated>2017-10-11T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-11:/docker-database.html</id><summary type="html">&lt;p&gt;Dockerで、Databaseを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;ローカル環境で簡単にデータベースを立ち上げるための、Dockerファイルを作成します。
+データベースの起動には、Dockerを使用します。&lt;/p&gt;
+&lt;h1&gt;データベースの作成&lt;/h1&gt;
+&lt;p&gt;データベースの作成方法を、PostgresqlとMySQLの場合について記述します。&lt;/p&gt;
+&lt;h2&gt;Postgresql&lt;/h2&gt;
+&lt;p&gt;データベースは、/var/lib/postgresql/dataに作成します。以下の例では、データベースは以下の内容で作成します。必要であれば、適宜変更してください。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;データベース名: workdb&lt;/li&gt;
+&lt;li&gt;ユーザ名: postgres&lt;/li&gt;
+&lt;li&gt;パスワード: postgres&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;docker-compose.ymlは、
+&lt;script src="https://gist.github.com/ponkotsu-n/486181184f5a66123a0570c37fedf813.js"&gt;&lt;/script&gt;
+となります。&lt;/p&gt;
+&lt;h2&gt;MySQL&lt;/h2&gt;
+&lt;p&gt;データベースは、/var/lib/mysqlに作成します。以下の例では、データベースは以下の内容で作成します。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;データベース名: workdb&lt;/li&gt;
+&lt;li&gt;ユーザ名: mysql&lt;/li&gt;
+&lt;li&gt;パスワード: mysql&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;docker-compose.ymlは、
+&lt;script src="https://gist.github.com/ponkotsu-n/871b0635df67379ea0bc0f9c7f4ddd20.js"&gt;&lt;/script&gt;
+となります。&lt;/p&gt;
+&lt;h1&gt;データ・ボリューム&lt;/h1&gt;
+&lt;p&gt;作成したデータベースは、Dockerコンテナのデータ・ボリューム上で管理します。データ・ボリュームは、Dockeホストの &lt;code&gt;/var/lib/docker/volumes/&lt;/code&gt;に作成されます。&lt;/p&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;このように Dockerを使用するとローカル環境にデータベースを手軽に作成できるので、大変便利です。あとは、お好きな SQL Clientからアクセスしてみてください。&lt;/p&gt;</content><category term="docker"></category><category term="postgresql"></category><category term="mysql"></category></entry><entry><title>DockerでPelicanを...</title><link href="https://ponkotsu-n.github.io/docker-pelican.html" rel="alternate"></link><published>2017-10-09T13:00:00+09:00</published><updated>2017-10-09T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-09:/docker-pelican.html</id><summary type="html">&lt;p&gt;Dockerで、Pelicanを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
 &lt;p&gt;ここでは、Docker上で Peicanを使用するための手順について記述します。&lt;/p&gt;
 &lt;h2&gt;目的&lt;/h2&gt;
 &lt;p&gt;Docker上に Pelican実行環境を作成し、Github上に Blogを公開することを目的とします。Dockerのインストールは、Google等で検索するとよい記事がたくさん公開されているので、ここでは割愛します。その他も基本的に検索すれば、わかりやすいページがいっぱいありますが...。&lt;/p&gt;

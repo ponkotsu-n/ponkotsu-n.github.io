@@ -38,11 +38,12 @@
 
 
 <ul class="main-navigation">
+    <li><a href="/pages/about.html">About Me</a></li>
       <li >
-        <a href="https://ponkotsu-n.github.io/category/pelican.html">Pelican</a>
+        <a href="https://ponkotsu-n.github.io/category/blog.html">Blog</a>
       </li>
       <li class="active">
-        <a href="https://ponkotsu-n.github.io/category/pelican-docker.html">Pelican, docker</a>
+        <a href="https://ponkotsu-n.github.io/category/docker.html">Docker</a>
       </li>
 </ul></nav>
   <div id="main">
@@ -52,7 +53,7 @@
 <header>
       <h1 class="entry-title">DockerでPelicanを...</h1>
     <p class="meta">
-<time datetime="2017-10-09T13:00:00+09:00" pubdate>Mon 09 October 2017</time>    </p>
+<time datetime="2017-10-09T13:00:00+09:00" pubdate>2017/10/9(Mon)</time>    </p>
 </header>
 
   <div class="entry-content"><h1>はじめに</h1>
@@ -165,12 +166,14 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
         ponkotsu
     </span>
   </span>
-<time datetime="2017-10-09T13:00:00+09:00" pubdate>Mon 09 October 2017</time>  <span class="categories">
-    <a class='category' href='https://ponkotsu-n.github.io/category/pelican-docker.html'>Pelican, Docker</a>
+<time datetime="2017-10-09T13:00:00+09:00" pubdate>2017/10/9(Mon)</time>  <span class="categories">
+    <a class='category' href='https://ponkotsu-n.github.io/category/docker.html'>docker</a>
   </span>
   <span class="categories">
     <a class="category" href="https://ponkotsu-n.github.io/tag/pelican.html">pelican</a>,    <a class="category" href="https://ponkotsu-n.github.io/tag/docker.html">docker</a>  </span>
 </p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://ponkotsu-n.github.io/docker-pelican.html" data-via="" data-counturl="https://ponkotsu-n.github.io/docker-pelican.html" >Tweet</a>
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
 </div>    </footer>
   </article>
 
@@ -180,10 +183,13 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
-          <a href="https://ponkotsu-n.github.io/dockerdepelicanwo.html">DockerでPelicanを...</a>
+          <a href="https://ponkotsu-n.github.io/docker-database.html">Dockerで楽々 Database</a>
       </li>
       <li class="post">
-          <a href="https://ponkotsu-n.github.io/first-post.html">はじめてのPelicanブログ</a>
+          <a href="https://ponkotsu-n.github.io/docker-pelican.html">DockerでPelicanを...</a>
+      </li>
+      <li class="post">
+          <a href="https://ponkotsu-n.github.io/blog-first-post.html">はじめてのPelicanブログ</a>
       </li>
     </ul>
   </section>
@@ -191,22 +197,48 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
       
     <h1>Categories</h1>
     <ul id="recent_posts">
-        <li><a href="https://ponkotsu-n.github.io/category/pelican.html">Pelican</a></li>
-        <li><a href="https://ponkotsu-n.github.io/category/pelican-docker.html">Pelican, Docker</a></li>
+        <li><a href="https://ponkotsu-n.github.io/category/blog.html">blog</a></li>
+        <li><a href="https://ponkotsu-n.github.io/category/docker.html">docker</a></li>
     </ul>
   </section>
  
 
   <section>
   <h1>Tags</h1>
-    <a href="https://ponkotsu-n.github.io/tag/pelican.html">pelican</a>,    <a href="https://ponkotsu-n.github.io/tag/docker.html">docker</a>,    <a href="https://ponkotsu-n.github.io/tag/python.html">python</a>  </section>
+    <a href="https://ponkotsu-n.github.io/tag/docker.html">docker</a>,    <a href="https://ponkotsu-n.github.io/tag/postgresql.html">postgresql</a>,    <a href="https://ponkotsu-n.github.io/tag/mysql.html">mysql</a>,    <a href="https://ponkotsu-n.github.io/tag/pelican.html">pelican</a>,    <a href="https://ponkotsu-n.github.io/tag/python.html">python</a>  </section>
 
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = 'https://ponkotsu-n.github.io/theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'ponkotsu-n',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="https://ponkotsu-n.github.io/theme/js/github.js" type="text/javascript"> </script>
+  </section>
 
     <section>
         <h1>Social</h1>
         <ul>
-            <li><a href="#" target="_blank">You can add links in your config file</a></li>
-            <li><a href="#" target="_blank">Another social link</a></li>
+            <li><a href="https://github.com/ponkotsu-n" target="_blank">github</a></li>
         </ul>
     </section>
     <section>
@@ -215,7 +247,6 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
             <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
             <li><a href="http://python.org/" target="_blank">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-            <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
         </ul>
     </section>
 
@@ -228,5 +259,22 @@ Pelicanをビルドして、起動するには、<code>Docker Quickstart Termina
   <script src="https://ponkotsu-n.github.io/theme/js/modernizr-2.0.js"></script>
   <script src="https://ponkotsu-n.github.io/theme/js/ender.js"></script>
   <script src="https://ponkotsu-n.github.io/theme/js/octopress.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
