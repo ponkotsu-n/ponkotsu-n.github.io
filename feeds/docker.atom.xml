@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - docker</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/docker.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-11T13:00:00+09:00</updated><entry><title>Dockerで楽々 Database</title><link href="https://ponkotsu-n.github.io/docker-database.html" rel="alternate"></link><published>2017-10-11T13:00:00+09:00</published><updated>2017-10-11T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-11:/docker-database.html</id><summary type="html">&lt;p&gt;Dockerで、Databaseを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - docker</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/docker.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-12T13:00:00+09:00</updated><entry><title>Dockerで Angular 4.0</title><link href="https://ponkotsu-n.github.io/docker-angular.html" rel="alternate"></link><published>2017-10-12T13:00:00+09:00</published><updated>2017-10-12T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-12:/docker-angular.html</id><summary type="html">&lt;p&gt;Angular-cliを使用するためのメモ&lt;/p&gt;</summary><content type="html">&lt;h1&gt;新しいプロジェクトの作成&lt;/h1&gt;
+&lt;p&gt;Anglular-cliで、新しいプロジェクトを作成しようと思うと、 &lt;code&gt;ng new hoge&lt;/code&gt;で作成すればよいのですが、Docker Toolboxを使用していて、Windows側のフォルダを共有しようとするとはまります。理由は、VirtualBoxがセキュリティ上の問題で、シンボリックリンクを禁止しているため、&lt;code&gt;npm&lt;/code&gt;でのインストールに失敗するからです。&lt;/p&gt;
+&lt;p&gt;通常の場合：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# ng new my-app
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そこで、Windows側のフォルダを共有している方（多いと思ったのですが、ググっても英語のページしか見当たりませんでした...）は、以下のようにすると幸せになれます。&lt;/p&gt;
+&lt;p&gt;Windows側のフォルダを共有する場合：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# ng new myapp --skip-install
+# cd myapp; npm install --no-bin-links --no-optional
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;--no-optional&lt;/code&gt;は必要ないはずなのですが、なぜかエラーになるため追加しました。&lt;code&gt;fsevents&lt;/code&gt;が悪さしているらしいですが、このライブラリは Macでしか使用しないそうです。よくわからん...。&lt;/p&gt;
+&lt;h1&gt;サーバの起動&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# ng serve
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;起動時の注意点&lt;/h2&gt;
+&lt;p&gt;サーバを起動し、Windows側のブラウザからアクセスするときの注意点は、&lt;code&gt;--host 0.0.0.0&lt;/code&gt;を引数に指定する必要があります。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# ng serve --host 0.0.0.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;-host&lt;/code&gt;を指定しないと、serverは、localhostのみに port:4200を開放します。解放されているポートの確認は、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# netstat -anp
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;です。&lt;/p&gt;
+&lt;h1&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;Dockerを Windows（かつ Toolbox）で使用している場合、いろいろはまりどころがあって、悲しくなります。結構、使っている方が多い気はするのですが、気のせいなのでしょうか？？？&lt;/p&gt;</content><category term="docker"></category><category term="angular"></category></entry><entry><title>Dockerで楽々 Database</title><link href="https://ponkotsu-n.github.io/docker-database.html" rel="alternate"></link><published>2017-10-11T13:00:00+09:00</published><updated>2017-10-11T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-11:/docker-database.html</id><summary type="html">&lt;p&gt;Dockerで、Databaseを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
 &lt;p&gt;ローカル環境で簡単にデータベースを立ち上げるための、Dockerファイルを作成します。
 データベースの起動には、Dockerを使用します。&lt;/p&gt;
 &lt;h1&gt;データベースの作成&lt;/h1&gt;
@@ -117,7 +150,7 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;p&gt;&lt;img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
 &lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
 &lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # http://localhost:8000(もしくは、http://192.168.99.100:8000)で作成した HTMLを確認する
 &lt;/pre&gt;&lt;/div&gt;
 
 
