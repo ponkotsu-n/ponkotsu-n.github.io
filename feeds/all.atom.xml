@@ -215,12 +215,4 @@ $ git init --bare --shared&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb
 &lt;li&gt;SyntaxHighlitも使えるぉ&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello World!!&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</content><category term="pelican"></category><category term="python"></category></entry><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
-&lt;p&gt;ペリカンでブログをはじめてみました。Markdownで気軽に書けるので、便利そうです。&lt;/p&gt;
-&lt;p&gt;最近、物忘れが激しいので、自分でいろいろやったことをまとめていきたいと思います。あくまでも、自分のための備忘録です。&lt;/p&gt;
-&lt;p&gt;不定期更新のです。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;SyntaxHighlitも使えるぉ&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello World!!&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</content><category term="pelican"></category><category term="python"></category></entry></feed>
