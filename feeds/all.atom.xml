@@ -150,7 +150,7 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;p&gt;&lt;img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
 &lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
 &lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # http://localhost:8000(もしくは、http://192.168.99.100:8000)で作成した HTMLを確認する
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -208,6 +208,14 @@ $ git init --bare --shared&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;今回は、Dockerを使用して、Pelicanでブログを作成し、Githubへ公開するまでを簡単にまとめてみました。Dockerを使ってみて、かなり使いやすいと感じました。Windows上でコードを編集し、Docker上で実行するという流れが、心地よいです。&lt;/p&gt;
 &lt;p&gt;これで、Windowsにいろいろインストールして、いつの間にか何のためにインストールしたかわからなくなるアプリケーションが溢れかえるという悪循環から解放されるように思います。&lt;/p&gt;</content><category term="pelican"></category><category term="docker"></category></entry><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/blog-first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/blog-first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
+&lt;p&gt;ペリカンでブログをはじめてみました。Markdownで気軽に書けるので、便利そうです。&lt;/p&gt;
+&lt;p&gt;最近、物忘れが激しいので、自分でいろいろやったことをまとめていきたいと思います。あくまでも、自分のための備忘録です。&lt;/p&gt;
+&lt;p&gt;不定期更新のです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SyntaxHighlitも使えるぉ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello World!!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="pelican"></category><category term="python"></category></entry><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
 &lt;p&gt;ペリカンでブログをはじめてみました。Markdownで気軽に書けるので、便利そうです。&lt;/p&gt;
 &lt;p&gt;最近、物忘れが激しいので、自分でいろいろやったことをまとめていきたいと思います。あくまでも、自分のための備忘録です。&lt;/p&gt;
 &lt;p&gt;不定期更新のです。&lt;/p&gt;

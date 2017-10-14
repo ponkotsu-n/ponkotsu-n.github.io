@@ -150,7 +150,7 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;p&gt;&lt;img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
 &lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
 &lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # http://localhost:8000(もしくは、http://192.168.99.100:8000)で作成した HTMLを確認する
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
 &lt;/pre&gt;&lt;/div&gt;
 
 
