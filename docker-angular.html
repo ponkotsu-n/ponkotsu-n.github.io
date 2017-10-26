@@ -88,6 +88,12 @@
 
 
 <p>です。</p>
+<p>ちなみにホストがUnixで Docker使ってて、Windowsからアクセスしたいときは、--disable-host-checkもいるらしいです。はまって、泣きそうでした。</p>
+<div class="highlight"><pre><span></span># ng serve --host 0.0.0.0 --disable-host-check
+</pre></div>
+
+
+<p>このオプションは、開発のみで使うみたいです...。<a href="https://github.com/angular/angular-cli/issues/6349">参考</a></p>
 <h1>まとめ</h1>
 <p>Dockerを Windows（かつ Toolbox）で使用している場合、いろいろはまりどころがあって、悲しくなります。結構、使っている方が多い気はするのですが、気のせいなのでしょうか？？？</p></div>
     <footer>

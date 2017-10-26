@@ -31,6 +31,12 @@
 
 
 &lt;p&gt;です。&lt;/p&gt;
+&lt;p&gt;ちなみにホストがUnixで Docker使ってて、Windowsからアクセスしたいときは、--disable-host-checkもいるらしいです。はまって、泣きそうでした。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# ng serve --host 0.0.0.0 --disable-host-check
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;このオプションは、開発のみで使うみたいです...。&lt;a href="https://github.com/angular/angular-cli/issues/6349"&gt;参考&lt;/a&gt;&lt;/p&gt;
 &lt;h1&gt;まとめ&lt;/h1&gt;
 &lt;p&gt;Dockerを Windows（かつ Toolbox）で使用している場合、いろいろはまりどころがあって、悲しくなります。結構、使っている方が多い気はするのですが、気のせいなのでしょうか？？？&lt;/p&gt;</content><category term="docker"></category><category term="angular"></category></entry><entry><title>Dockerで楽々 Database</title><link href="https://ponkotsu-n.github.io/docker-database.html" rel="alternate"></link><published>2017-10-11T13:00:00+09:00</published><updated>2017-10-11T13:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-11:/docker-database.html</id><summary type="html">&lt;p&gt;Dockerで、Databaseを使用するための手順を記述。&lt;/p&gt;</summary><content type="html">&lt;h1&gt;はじめに&lt;/h1&gt;
 &lt;p&gt;ローカル環境で簡単にデータベースを立ち上げるための、Dockerファイルを作成します。
@@ -150,7 +156,7 @@ Pelicanをビルドして、起動するには、&lt;code&gt;Docker Quickstart T
 &lt;p&gt;&lt;img src="/images/docker/make-html.png" alt="make html" title="HTMLの作成"&gt;&lt;/p&gt;
 &lt;h2&gt;ローカル環境での確認&lt;/h2&gt;
 &lt;p&gt;Pelicanでは、ローカルで作成した HTMLを確認するための、HTMLサーバが梱包されています。HTML サーバの起動は、以下のようにします。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # localhost:8080で作成した HTMLを確認する
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# make serve      # http://localhost:8000(もしくは、http://192.168.99.100:8000)で作成した HTMLを確認する
 &lt;/pre&gt;&lt;/div&gt;
 
 
