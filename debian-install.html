@@ -4,8 +4,10 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive &mdash; Ponkotsu blog - Programer 徒然草</title>
+  <title>debianで涙目 &mdash; Ponkotsu blog - Programer 徒然草</title>
   <meta name="author" content="Ponkotsu Programer">
+
+
 
 
 
@@ -37,7 +39,7 @@
 
 <ul class="main-navigation">
     <li><a href="/pages/about.html">About Me</a></li>
-      <li >
+      <li class="active">
         <a href="https://ponkotsu-n.github.io/category/blog.html">Blog</a>
       </li>
       <li >
@@ -47,85 +49,72 @@
   <div id="main">
     <div id="content">
 <div>
-  <article role="article">
-      <header>
-        <h1 class="entry-title">Blog Archive</h1>
-      </header>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">debianで涙目</h1>
+    <p class="meta">
+<time datetime="2017-10-27T14:00:00+09:00" pubdate>2017/10/27(Fri)</time>    </p>
+</header>
 
-      <div id="blog-archives">
-            <h2>2017</h2>
-                    <article>
-                        <h1><a href="https://ponkotsu-n.github.io/debian-install.html">debianで涙目</a></h1>
-                        <time datetime="2017-10-27 14:00:00+09:00" pubdate>
-                            <span class="month">Oct</span>
-                            <span class="day">27</span>
-                            <span class="year">2017</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='https://ponkotsu-n.github.io/category/blog.html'>blog</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-                    <article>
-                        <h1><a href="https://ponkotsu-n.github.io/docker-angular.html">Dockerで Angular 4.0</a></h1>
-                        <time datetime="2017-10-12 13:00:00+09:00" pubdate>
-                            <span class="month">Oct</span>
-                            <span class="day">12</span>
-                            <span class="year">2017</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='https://ponkotsu-n.github.io/category/docker.html'>docker</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-                    <article>
-                        <h1><a href="https://ponkotsu-n.github.io/docker-database.html">Dockerで楽々 Database</a></h1>
-                        <time datetime="2017-10-11 13:00:00+09:00" pubdate>
-                            <span class="month">Oct</span>
-                            <span class="day">11</span>
-                            <span class="year">2017</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='https://ponkotsu-n.github.io/category/docker.html'>docker</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-                    <article>
-                        <h1><a href="https://ponkotsu-n.github.io/docker-pelican.html">DockerでPelicanを...</a></h1>
-                        <time datetime="2017-10-09 13:00:00+09:00" pubdate>
-                            <span class="month">Oct</span>
-                            <span class="day">09</span>
-                            <span class="year">2017</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='https://ponkotsu-n.github.io/category/docker.html'>docker</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-                    <article>
-                        <h1><a href="https://ponkotsu-n.github.io/blog-first-post.html">はじめてのPelicanブログ</a></h1>
-                        <time datetime="2017-10-07 22:00:00+09:00" pubdate>
-                            <span class="month">Oct</span>
-                            <span class="day">07</span>
-                            <span class="year">2017</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='https://ponkotsu-n.github.io/category/blog.html'>blog</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-      </div>
-    </article>
+  <div class="entry-content"><h1>debian...</h1>
+<p>久しぶりに Debianをインストールしてみました。最近の Linuxなので、当然 GUIで立ち上がってよかったのですが。
+しばらく放っておくと、ディスプレイが省電力モードに切り替わります。これも特に問題ないのですが、この後マウスを
+動かそうが、キーボード叩こうが復帰してくれません。</p>
+<p>原因もよくわからなくて、ググってもよくわからなかったので、textモードに切り替えることにしました。
+ここで、またトラブルが...。textモードへの切り替えがよくわからないでのす。</p>
+<h1>textモードへの切り替え</h1>
+<p>いろいろググっても、よくわからなくて、いろいろ試してもだめで...。やっと該当する情報をゲットしました。</p>
+<p>どうやら、<code>/etc/default/grub</code>を書き換えるだけでいけるらしい。しかし、書き換えてもコンソールからログインできないのです...。</p>
+<p>以下のようにするといけるようになりました。</p>
+<ol>
+<li>/etc/default/grubを書き換える</li>
+<li>update-grubを実行</li>
+<li>gdm3を止める</li>
+<li>systemctl で set-defaultに multi-user.targetを設定する</li>
+</ol>
+<p><code>/etc/default/grub</code>の内容</p>
+<div class="highlight"><pre><span></span>   :
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+   :
+GRUB_TERMINAL=console
+   :
+</pre></div>
+
+
+<p>ルートになって、以下を実行する</p>
+<div class="highlight"><pre><span></span># update-grub
+
+# systemctl status gdm3
+# systemctl disable gdm3
+# systemctl stop gdm3
+
+# systemctl set-default multi-user.target
+</pre></div>
+
+
+<p>わかってしまえば、簡単なのですがたどり着くまで泣きそうです。
+<a href="https://lists.debian.org/debian-user/2017/02/msg00045.html">debian-userメーリングリスト</a>のスレッドを参考にしました。</p>
+<h1>最後に</h1>
+<p>久しぶりに Unixをさわると昔と全然違っていて、全くついていけてないことを痛感します。</p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        ponkotsu
+    </span>
+  </span>
+<time datetime="2017-10-27T14:00:00+09:00" pubdate>2017/10/27(Fri)</time>  <span class="categories">
+    <a class='category' href='https://ponkotsu-n.github.io/category/blog.html'>blog</a>
+  </span>
+  <span class="categories">
+    <a class="category" href="https://ponkotsu-n.github.io/tag/debian.html">debian</a>  </span>
+</p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://ponkotsu-n.github.io/debian-install.html" data-via="" data-counturl="https://ponkotsu-n.github.io/debian-install.html" >Tweet</a>
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+</div>    </footer>
+  </article>
+
 </div>
 <aside class="sidebar">
   <section>

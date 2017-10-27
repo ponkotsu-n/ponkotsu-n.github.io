@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - blog</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/blog.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-07T22:00:00+09:00</updated><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/blog-first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/blog-first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Ponkotsu blog - Programer 徒然草 - blog</title><link href="https://ponkotsu-n.github.io/" rel="alternate"></link><link href="https://ponkotsu-n.github.io/feeds/blog.atom.xml" rel="self"></link><id>https://ponkotsu-n.github.io/</id><updated>2017-10-27T14:00:00+09:00</updated><entry><title>debianで涙目</title><link href="https://ponkotsu-n.github.io/debian-install.html" rel="alternate"></link><published>2017-10-27T14:00:00+09:00</published><updated>2017-10-27T14:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-27:/debian-install.html</id><summary type="html">&lt;p&gt;久しぶりに debianをインストールしたのだが...&lt;/p&gt;</summary><content type="html">&lt;h1&gt;debian...&lt;/h1&gt;
+&lt;p&gt;久しぶりに Debianをインストールしてみました。最近の Linuxなので、当然 GUIで立ち上がってよかったのですが。
+しばらく放っておくと、ディスプレイが省電力モードに切り替わります。これも特に問題ないのですが、この後マウスを
+動かそうが、キーボード叩こうが復帰してくれません。&lt;/p&gt;
+&lt;p&gt;原因もよくわからなくて、ググってもよくわからなかったので、textモードに切り替えることにしました。
+ここで、またトラブルが...。textモードへの切り替えがよくわからないでのす。&lt;/p&gt;
+&lt;h1&gt;textモードへの切り替え&lt;/h1&gt;
+&lt;p&gt;いろいろググっても、よくわからなくて、いろいろ試してもだめで...。やっと該当する情報をゲットしました。&lt;/p&gt;
+&lt;p&gt;どうやら、&lt;code&gt;/etc/default/grub&lt;/code&gt;を書き換えるだけでいけるらしい。しかし、書き換えてもコンソールからログインできないのです...。&lt;/p&gt;
+&lt;p&gt;以下のようにするといけるようになりました。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;/etc/default/grubを書き換える&lt;/li&gt;
+&lt;li&gt;update-grubを実行&lt;/li&gt;
+&lt;li&gt;gdm3を止める&lt;/li&gt;
+&lt;li&gt;systemctl で set-defaultに multi-user.targetを設定する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;/etc/default/grub&lt;/code&gt;の内容&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;   :
+GRUB_CMDLINE_LINUX_DEFAULT=&amp;quot;&amp;quot;
+GRUB_CMDLINE_LINUX=&amp;quot;&amp;quot;
+   :
+GRUB_TERMINAL=console
+   :
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ルートになって、以下を実行する&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# update-grub
+
+# systemctl status gdm3
+# systemctl disable gdm3
+# systemctl stop gdm3
+
+# systemctl set-default multi-user.target
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;わかってしまえば、簡単なのですがたどり着くまで泣きそうです。
+&lt;a href="https://lists.debian.org/debian-user/2017/02/msg00045.html"&gt;debian-userメーリングリスト&lt;/a&gt;のスレッドを参考にしました。&lt;/p&gt;
+&lt;h1&gt;最後に&lt;/h1&gt;
+&lt;p&gt;久しぶりに Unixをさわると昔と全然違っていて、全くついていけてないことを痛感します。&lt;/p&gt;</content><category term="debian"></category></entry><entry><title>はじめてのPelicanブログ</title><link href="https://ponkotsu-n.github.io/blog-first-post.html" rel="alternate"></link><published>2017-10-07T22:00:00+09:00</published><updated>2017-10-07T22:00:00+09:00</updated><author><name>ponkotsu</name></author><id>tag:ponkotsu-n.github.io,2017-10-07:/blog-first-post.html</id><summary type="html">&lt;p&gt;ペリカンでブログをはじめてみた&lt;/p&gt;</summary><content type="html">&lt;h1&gt;ペリカンでブログ&lt;/h1&gt;
 &lt;p&gt;ペリカンでブログをはじめてみました。Markdownで気軽に書けるので、便利そうです。&lt;/p&gt;
 &lt;p&gt;最近、物忘れが激しいので、自分でいろいろやったことをまとめていきたいと思います。あくまでも、自分のための備忘録です。&lt;/p&gt;
 &lt;p&gt;不定期更新のです。&lt;/p&gt;
